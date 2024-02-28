@@ -22,10 +22,17 @@ export const makeTable = async () => {
   // Here we simply rearrange company fields in the order in which we want to display them in UI
   companies.map(company => {
     const row = [];
+    const readableDate = () => { //creates local readable time
+      let iso = company[CREATED_AT_FIELD_NAME];      
+      const date = new Date(iso);
+      return date.getHours() + ":" + date.getMinutes();
+    }
+    // let readableDate = company[CREATED_AT_FIELD_NAME].substring(11, 16); //creates universal readable time. May be too simple a solution
     row.push(
       company[COMPANY_NAME_FIELD_NAME],
       company[STATUS_FIELD_NAME],
-      company[CREATED_AT_FIELD_NAME],
+      readableDate(), //returns readable time instead of api's company[CREATED_AT_FIELD_NAME]
+      // readableDate, //returns readable time instead of api's company[CREATED_AT_FIELD_NAME]
       company[REVENUE_YTD_FIELD_NAME],
       company[ACCOUNT_EXECUTIVE_FIELD_NAME]
     );
